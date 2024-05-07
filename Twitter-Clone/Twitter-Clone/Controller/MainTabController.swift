@@ -24,9 +24,9 @@ class MainTabController: UITabBarController {
         let feed = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: FeedController())
         
         let explore = templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: ExploreController())
-        
+
         let notifications = templateNavigationController(image: UIImage(named: "like_unselected"), rootViewController: NotificationsController())
-        
+
         let conversations = templateNavigationController(image: UIImage(named: "ic_mail_outline_white_2x-1"), rootViewController: ConversationsController())
         
         viewControllers = [feed, explore, notifications, conversations]
@@ -34,8 +34,12 @@ class MainTabController: UITabBarController {
     
     func templateNavigationController(image: UIImage?, rootViewController: UIViewController) -> UINavigationController {
         let nav = UINavigationController(rootViewController: rootViewController)
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        nav.navigationBar.standardAppearance = appearance;
+        nav.navigationBar.scrollEdgeAppearance = nav.navigationBar.standardAppearance
         nav.tabBarItem.image = image
-        nav.navigationBar.barTintColor = .white
         
         return nav
     }

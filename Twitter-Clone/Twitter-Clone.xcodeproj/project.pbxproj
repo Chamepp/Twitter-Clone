@@ -20,6 +20,7 @@
 		4176AB522BEA2A5600F39712 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4176AB512BEA2A5600F39712 /* Extentions.swift */; };
 		4176AB552BEA7DAD00F39712 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4176AB542BEA7DAD00F39712 /* LoginController.swift */; };
 		4176AB572BEA7E3800F39712 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4176AB562BEA7E3800F39712 /* RegistrationController.swift */; };
+		4176AB592BEB8D1700F39712 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4176AB582BEB8D1700F39712 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		4176AB512BEA2A5600F39712 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		4176AB542BEA7DAD00F39712 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		4176AB562BEA7E3800F39712 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
+		4176AB582BEB8D1700F39712 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				4176AB512BEA2A5600F39712 /* Extentions.swift */,
+				4176AB582BEB8D1700F39712 /* Utilities.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			files = (
 				4176AB4E2BE6453F00F39712 /* NotificationsController.swift in Sources */,
 				4176AB502BE6455200F39712 /* ConversationsController.swift in Sources */,
+				4176AB592BEB8D1700F39712 /* Utilities.swift in Sources */,
 				4176AB2C2BE520FD00F39712 /* AppDelegate.swift in Sources */,
 				4176AB4C2BE6452C00F39712 /* ExploreController.swift in Sources */,
 				4176AB552BEA7DAD00F39712 /* LoginController.swift in Sources */,

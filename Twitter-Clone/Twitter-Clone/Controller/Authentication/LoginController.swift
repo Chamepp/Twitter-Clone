@@ -18,31 +18,23 @@ class LoginController: UIViewController {
     }()
     
     private lazy var emailContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .red
-        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "mail")
-        
-        view.addSubview(iv)
-        iv.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, paddingLeft: 8, paddingBottom: 8)
-        iv.setDimensions(width: 24, height: 24)
+        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_mail_outline_white_2x-1"), textField: emailTextField)
         return view
     }()
     
     private lazy var passwordContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .yellow
-        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "ic_lock_outline_white_2x")
-        
-        view.addSubview(iv)
-        iv.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, paddingLeft: 8, paddingBottom: 8)
-        iv.setDimensions(width: 24, height: 24)
+        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_lock_outline_white_2x"), textField: passwordTextField)
         return view
+    }()
+    
+    private let emailTextField: UITextField = {
+        let tf = Utilities().textField(withPlaceholder: "Email", isSecure: false)
+        return tf
+    }()
+    
+    private let passwordTextField: UITextField = {
+        let tf = Utilities().textField(withPlaceholder: "Password", isSecure: true)
+        return tf
     }()
     
     // MARK: - Lifecycle
@@ -69,6 +61,6 @@ class LoginController: UIViewController {
         stack.spacing = 8
         
         view.addSubview(stack)
-        stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor)
+        stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 16, paddingRight: 16)
     }
 }

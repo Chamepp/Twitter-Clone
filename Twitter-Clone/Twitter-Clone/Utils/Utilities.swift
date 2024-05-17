@@ -53,4 +53,16 @@ class Utilities {
         
         return button
     }
+    
+    func templateNavigationController(image: UIImage?, rootViewController: UIViewController) -> UINavigationController {
+        let nav = UINavigationController(rootViewController: rootViewController)
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        nav.navigationBar.standardAppearance = appearance;
+        nav.navigationBar.scrollEdgeAppearance = nav.navigationBar.standardAppearance
+        nav.tabBarItem.image = image
+        
+        return nav
+    }
 }

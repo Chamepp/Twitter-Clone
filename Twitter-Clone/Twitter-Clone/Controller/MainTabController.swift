@@ -26,7 +26,7 @@ class MainTabController: UITabBarController {
         button.tintColor = .white
         button.backgroundColor = .twitterBlue
         button.setImage(UIImage(named: "new_tweet"), for: .normal)
-        button.addTarget(MainTabController.self, action: #selector(actionButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -71,7 +71,11 @@ class MainTabController: UITabBarController {
     
     // MARK: - Selectors
     @objc func actionButtonTapped() {
-        print("DEBUG: Action button tapped")
+        guard let user = user else { return }
+        let controller = UploadTweetController(user: user)
+        let nav = Utilities().templateNavigationController(image: nil, rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
     }
     
     // MARK: - Helpers
@@ -90,26 +94,14 @@ class MainTabController: UITabBarController {
     
     
     func configureViewControllers() {
-        let feed = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: FeedController())
+        let feed = Utilities().templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: FeedController())
         
-        let explore = templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: ExploreController())
+        let explore = Utilities().templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: ExploreController())
 
-        let notifications = templateNavigationController(image: UIImage(named: "like_unselected"), rootViewController: NotificationsController())
+        let notifications = Utilities().templateNavigationController(image: UIImage(named: "like_unselected"), rootViewController: NotificationsController())
 
-        let conversations = templateNavigationController(image: UIImage(named: "ic_mail_outline_white_2x-1"), rootViewController: ConversationsController())
+        let conversations = Utilities().templateNavigationController(image: UIImage(named: "ic_mail_outline_white_2x-1"), rootViewController: ConversationsController())
         
         viewControllers = [feed, explore, notifications, conversations]
-    }
-    
-    func templateNavigationController(image: UIImage?, rootViewController: UIViewController) -> UINavigationController {
-        let nav = UINavigationController(rootViewController: rootViewController)
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
-        nav.navigationBar.standardAppearance = appearance;
-        nav.navigationBar.scrollEdgeAppearance = nav.navigationBar.standardAppearance
-        nav.tabBarItem.image = image
-        
-        return nav
     }
 }

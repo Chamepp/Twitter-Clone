@@ -23,6 +23,7 @@ class ExploreController: UITableViewController {
         super.viewDidLoad()
         
         configureUI()
+        fetchUsers()
     }
     
     // MARK: - API

@@ -16,6 +16,7 @@
 		41714B3C2BFF277D004B9215 /* ProfileFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41714B3B2BFF277D004B9215 /* ProfileFilterView.swift */; };
 		41714B3E2BFF3FA6004B9215 /* ProfileFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41714B3D2BFF3FA6004B9215 /* ProfileFilterCell.swift */; };
 		41714B402BFF7BD0004B9215 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41714B3F2BFF7BD0004B9215 /* ProfileHeaderViewModel.swift */; };
+		41714B422C01C4EE004B9215 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41714B412C01C4EE004B9215 /* UserCell.swift */; };
 		4176AB2C2BE520FD00F39712 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4176AB2B2BE520FD00F39712 /* AppDelegate.swift */; };
 		4176AB2E2BE520FD00F39712 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4176AB2D2BE520FD00F39712 /* SceneDelegate.swift */; };
 		4176AB332BE520FD00F39712 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 4176AB322BE520FD00F39712 /* Base */; };
@@ -51,6 +52,7 @@
 		41714B3B2BFF277D004B9215 /* ProfileFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterView.swift; sourceTree = "<group>"; };
 		41714B3D2BFF3FA6004B9215 /* ProfileFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterCell.swift; sourceTree = "<group>"; };
 		41714B3F2BFF7BD0004B9215 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
+		41714B412C01C4EE004B9215 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		4176AB282BE520FD00F39712 /* Twitter-Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter-Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4176AB2B2BE520FD00F39712 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4176AB2D2BE520FD00F39712 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				41714B392BFCD7B5004B9215 /* ProfileHeader.swift */,
 				41714B3B2BFF277D004B9215 /* ProfileFilterView.swift */,
 				41714B3D2BFF3FA6004B9215 /* ProfileFilterCell.swift */,
+				41714B412C01C4EE004B9215 /* UserCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				416731E92BF759DE00544352 /* CaptionTextView.swift in Sources */,
 				41714B3E2BFF3FA6004B9215 /* ProfileFilterCell.swift in Sources */,
 				4176AB502BE6455200F39712 /* ConversationsController.swift in Sources */,
+				41714B422C01C4EE004B9215 /* UserCell.swift in Sources */,
 				4176AB592BEB8D1700F39712 /* Utilities.swift in Sources */,
 				4176AB2C2BE520FD00F39712 /* AppDelegate.swift in Sources */,
 				4176AB4C2BE6452C00F39712 /* ExploreController.swift in Sources */,

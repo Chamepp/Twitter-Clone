@@ -59,7 +59,13 @@ class UploadTweetController: UIViewController {
     }
     
     @objc func handleUploadTweet() {
-        print("DEBUG: Handling tweet upload")
+        guard let caption = captionTextView.text else { return }
+        TweetService.shared.uploadTweet(caption: caption) { error, ref in
+            if let error = error {
+                print("DEBUG: Failed to upload the tweet \(error.localizedDescription)")
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     // MARK: - API
@@ -76,7 +82,8 @@ class UploadTweetController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
         stack.axis = .horizontal
         stack.spacing = 12
-        stack.addSubview(profileImageView)
+        
+        view.addSubview(stack)
         stack.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 16, paddingLeft: 16, paddingRight: 16)
         
         profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)

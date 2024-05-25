@@ -59,7 +59,7 @@ class Utilities {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .white
-        nav.navigationBar.standardAppearance = appearance;
+        nav.navigationBar.standardAppearance = appearance
         nav.navigationBar.scrollEdgeAppearance = nav.navigationBar.standardAppearance
         nav.tabBarItem.image = image
         

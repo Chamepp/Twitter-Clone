@@ -42,7 +42,8 @@ class MainTabController: UITabBarController {
     
     // MARK: - API
     func fetchUser() {
-        UserService.shared.fetchUser { user in
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        UserService.shared.fetchUser(uid: uid) { user in
             self.user = user
         }
     }
@@ -76,6 +77,7 @@ class MainTabController: UITabBarController {
         let nav = Utilities().templateNavigationController(image: nil, rootViewController: controller)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
+        print("DEBUG: Presented the view")
     }
     
     // MARK: - Helpers
@@ -94,7 +96,7 @@ class MainTabController: UITabBarController {
     
     
     func configureViewControllers() {
-        let feed = Utilities().templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: FeedController())
+        let feed = Utilities().templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: FeedController(collectionViewLayout: UICollectionViewFlowLayout()))
         
         let explore = Utilities().templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: ExploreController())
 

@@ -40,7 +40,6 @@ class UploadTweetController: UIViewController {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .lightGray
-        label.text = "Replying to @PatrickBateman"
         label.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         return label
     }()
@@ -77,7 +76,7 @@ class UploadTweetController: UIViewController {
     
     @objc func handleUploadTweet() {
         guard let caption = captionTextView.text else { return }
-        TweetService.shared.uploadTweet(caption: caption) { error, ref in
+        TweetService.shared.uploadTweet(caption: caption, type: config) { error, ref in
             if let error = error {
                 print("DEBUG: Failed to upload the tweet \(error.localizedDescription)")
             }
@@ -114,5 +113,7 @@ class UploadTweetController: UIViewController {
         captionTextView.placeHolderLabel.text = viewModel.placeHolderText
         
         replyLabel.isHidden = !viewModel.shouldShowReplyLabel
+        guard let replyText = viewModel.replyText else { return }
+        replyLabel.text = replyText
     }
 }

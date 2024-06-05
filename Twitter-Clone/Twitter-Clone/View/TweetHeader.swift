@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TweetHeaderDelegate: class {
+    func showActionSheet()
+}
+
 class TweetHeader: UICollectionReusableView {
     // MARK: - Properties
     var tweet: Tweet? {
@@ -15,6 +19,7 @@ class TweetHeader: UICollectionReusableView {
         }
     }
     
+    weak var delegate: TweetHeaderDelegate?
     
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
@@ -67,7 +72,7 @@ class TweetHeader: UICollectionReusableView {
         let button = UIButton()
         button.tintColor = .lightGray
         button.setImage(UIImage(named: "down_arrow_24pt"), for: .normal)
-        button.addTarget(self, action: #selector(showActionStart), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
         return button
     }()
     
@@ -156,7 +161,7 @@ class TweetHeader: UICollectionReusableView {
         
         addSubview(actionStack)
         actionStack.centerX(inView: self)
-        actionStack.anchor(bottom: bottomAnchor, paddingBottom: 12)
+        actionStack.anchor(top: statsView.bottomAnchor, paddingTop: 12)
         
     }
     
@@ -171,8 +176,8 @@ class TweetHeader: UICollectionReusableView {
         
     }
     
-    @objc func showActionStart() {
-        
+    @objc func showActionSheet() {
+        delegate?.showActionSheet()
     }
     
     @objc func handleCommentTapped() {

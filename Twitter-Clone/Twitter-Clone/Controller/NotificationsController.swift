@@ -67,7 +67,7 @@ class NotificationsController: UITableViewController {
         
         let refreshController = UIRefreshControl()
         tableView.refreshControl = refreshController
-        refreshController.addTarget(self, action: #selector(), for: .valueChanged)
+        refreshController.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
     }
 }
 

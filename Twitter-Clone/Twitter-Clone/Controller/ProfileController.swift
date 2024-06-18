@@ -12,7 +12,7 @@ private let headerIdentifier = "ProfileHeader"
 
 class ProfileController: UICollectionViewController {
     // MARK: - Properties
-    private var user: User
+    var user: User
     
     private var selectedFilter: ProfileFilterOptions = .tweets {
         didSet {
@@ -87,7 +87,6 @@ class ProfileController: UICollectionViewController {
     
     func fetchUserStats() {
         UserService.shared.fetchUserStats(uid: user.uid) { stats in
-            print("DEBUG: User has \(stats.followers) followers and \(stats.following) folllowings")
             self.user.stats = stats
             self.collectionView.reloadData()
         }
@@ -156,7 +155,12 @@ extension ProfileController: ProfileHeaderDelegate {
     func handleEditProfileButton(_ header: ProfileHeader) {
         
         if user.isCurrentUser {
-            print("DEBUG: Show edit profile controller")
+            let controller = EditProfileController(user: user)
+            controller.delegate = self
+            let nav = Utilities().templateNavigationController(image: nil, rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true, completion: nil)
+            
             return
         }
         
@@ -177,5 +181,14 @@ extension ProfileController: ProfileHeaderDelegate {
     
     func handleDismissal() {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - EditProfileControllerDelegate
+extension ProfileController: EditProfileControllerDelegate {
+    func controller(_ controller: EditProfileController, wantsToUpdate user: User) {
+        controller.dismiss(animated: true, completion: nil)
+        self.user = user
+        self.collectionView.reloadData()
     }
 }

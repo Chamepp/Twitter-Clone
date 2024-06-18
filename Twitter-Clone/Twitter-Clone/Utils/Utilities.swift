@@ -8,7 +8,7 @@
 import UIKit
 
 class Utilities {
-    func inputContainerView(withImage image: UIImage, textField: UITextField) -> UIView {
+    func inputContainerView(withImage image: UIImage?, textField: UITextField) -> UIView {
         let view = UIView()
         let iv = UIImageView()
         
@@ -32,11 +32,11 @@ class Utilities {
         return view
     }
     
-    func textField(withPlaceholder placeholder: String, isSecure: Bool) -> UITextField {
+    func textField(withPlaceholder placeholder: String, isSecure: Bool, textColor: UIColor) -> UITextField {
         let tf = UITextField()
-        tf.textColor = .white
+        tf.textColor = textColor
         tf.font = UIFont.systemFont(ofSize: 16)
-        tf.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        tf.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: textColor])
         if isSecure {
             tf.isSecureTextEntry = true
         }

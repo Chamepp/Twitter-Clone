@@ -44,22 +44,22 @@ class RegistrationController: UIViewController {
     }()
     
     private let emailTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Email", isSecure: false)
+        let tf = Utilities().textField(withPlaceholder: "Email", isSecure: false, textColor: UIColor.white)
         return tf
     }()
     
     private let passwordTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Password", isSecure: true)
+        let tf = Utilities().textField(withPlaceholder: "Password", isSecure: true, textColor: UIColor.white)
         return tf
     }()
     
     private let fullnameTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Full Name", isSecure: false)
+        let tf = Utilities().textField(withPlaceholder: "Full Name", isSecure: false, textColor: UIColor.white)
         return tf
     }()
     
     private let usernameTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Username", isSecure: false)
+        let tf = Utilities().textField(withPlaceholder: "Username", isSecure: false, textColor: UIColor.white)
         return tf
     }()
     

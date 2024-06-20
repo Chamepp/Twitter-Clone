@@ -5,6 +5,7 @@
 //  Created by Ashkan Ebtekari on 5/16/24.
 //
 
+import ActiveLabel
 import UIKit
 
 class UploadTweetController: UIViewController {
@@ -36,10 +37,11 @@ class UploadTweetController: UIViewController {
         return iv
     }()
     
-    private lazy var replyLabel: UILabel = {
-        let label = UILabel()
+    private lazy var replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .lightGray
+        label.mentionColor = .twitterBlue
         label.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         return label
     }()
@@ -60,6 +62,7 @@ class UploadTweetController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureMentionHandler()
         
         switch config {
         case .tweet:
@@ -119,5 +122,11 @@ class UploadTweetController: UIViewController {
         replyLabel.isHidden = !viewModel.shouldShowReplyLabel
         guard let replyText = viewModel.replyText else { return }
         replyLabel.text = replyText
+    }
+    
+    func configureMentionHandler() {
+        replyLabel.handleMentionTap { mention in
+            print("DEBUG: Mentioned user is \(mention)")
+        }
     }
 }

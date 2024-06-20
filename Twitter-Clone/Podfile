@@ -13,6 +13,7 @@ target 'Twitter-Clone' do
 	pod 'FirebaseStorage'
 	pod 'FirebaseAuth'
 	pod 'SDWebImage', '~> 5.0'
+	pod 'ActiveLabel'
 end
 
 post_install do |installer|

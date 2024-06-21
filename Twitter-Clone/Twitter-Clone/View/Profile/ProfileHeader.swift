@@ -11,6 +11,7 @@ protocol ProfileHeaderDelegate: class {
     func handleDismissal()
     func handleEditProfileButton(_ header: ProfileHeader)
     func didSelect(filter: ProfileFilterOptions)
+    func logUserOut()
 }
 
 class ProfileHeader: UICollectionReusableView {
@@ -60,6 +61,17 @@ class ProfileHeader: UICollectionReusableView {
         button.setTitleColor(.twitterBlue, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.addTarget(self, action: #selector(handleEditProfileFollow), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var logOutButton: UIButton = {
+        let button = UIButton (type: .system)
+        button.layer.borderColor = UIColor.red.cgColor
+        button.layer.borderWidth = 1.25
+        button.setImage(UIImage(named: "logout"), for: .normal)
+        button.tintColor = .red
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(handleUserLogOut), for: .touchUpInside)
         return button
     }()
     
@@ -156,6 +168,10 @@ class ProfileHeader: UICollectionReusableView {
         delegate?.handleEditProfileButton(self)
     }
     
+    @objc func handleUserLogOut() {
+        delegate?.logUserOut()
+    }
+    
     @objc func handleFollowersTapped() {
         
     }
@@ -174,6 +190,13 @@ class ProfileHeader: UICollectionReusableView {
         editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
         followingLabel.attributedText = viewModel.followingString
         followersLabel.attributedText = viewModel.followersString
+        
+        if viewModel.shouldShowLogOut {
+            addSubview(logOutButton)
+            logOutButton.anchor(top: containerView.bottomAnchor, right: editProfileFollowButton.leftAnchor, paddingTop: 12, paddingRight: 12)
+            logOutButton.setDimensions(width: 60, height: 36)
+            logOutButton.layer.cornerRadius = 36 / 2
+        }
         
         fullnameLabel.text = user.fullname
         usernameLabel.text = viewModel.usernameText

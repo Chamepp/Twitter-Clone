@@ -35,7 +35,6 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        logUserOut()
         view.backgroundColor = .twitterBlue
         authenticateUserAndConfigureUI()
     }
@@ -49,7 +48,9 @@ class MainTabController: UITabBarController {
     }
     
     func authenticateUserAndConfigureUI() {
-        if Auth.auth().currentUser == nil {
+        let currentUid = Auth.auth().currentUser
+        
+        if currentUid == nil {
             DispatchQueue.main.async {
                 let nav = UINavigationController(rootViewController: LoginController())
                 nav.modalPresentationStyle = .fullScreen
@@ -59,14 +60,6 @@ class MainTabController: UITabBarController {
             configureUI()
             configureViewControllers()
             fetchUser()
-        }
-    }
-    
-    func logUserOut() {
-        do {
-            try Auth.auth().signOut()
-        } catch let error {
-            print("DEBUG: \(error.localizedDescription)")
         }
     }
     

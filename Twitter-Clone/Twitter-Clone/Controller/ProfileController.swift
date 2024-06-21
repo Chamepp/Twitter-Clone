@@ -5,6 +5,7 @@
 //  Created by Ashkan Ebtekari on 5/21/24.
 //
 
+import Firebase
 import UIKit
 
 private let reuseIdentifier = "TweetCell"
@@ -148,6 +149,26 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - ProfileHeaderDelegate
 extension ProfileController: ProfileHeaderDelegate {
+    func logUserOut() {
+        AlertController.presentLogoutAlert(
+            onController: self,
+            title: "Log Out",
+            message: "Are you sure you want to log out? You will need to log in again to access your account."
+        ) {
+            do {
+                try Auth.auth().signOut()
+
+                DispatchQueue.main.async {
+                    let nav = UINavigationController(rootViewController: LoginController())
+                    nav.modalPresentationStyle = .fullScreen
+                    self.present(nav, animated: true, completion: nil)
+                }
+            } catch let error {
+                print("DEBUG: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     func didSelect(filter: ProfileFilterOptions) {
         self.selectedFilter = filter
     }

@@ -50,6 +50,10 @@ struct ProfileHeaderViewModel {
         return "Loading"
     }
     
+    var shouldShowLogOut: Bool {
+        user.isCurrentUser
+    }
+    
     init(user: User) {
         self.user = user
         self.usernameText = "@" + user.username

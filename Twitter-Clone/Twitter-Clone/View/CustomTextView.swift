@@ -1,5 +1,5 @@
 //
-//  CaptionTextView.swift
+//  CustomTextView.swift
 //  Twitter-Clone
 //
 //  Created by Ashkan Ebtekari on 5/17/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CaptionTextView: UITextView {
+class CustomTextView: UITextView {
     // MARK: - Properties
     let placeHolderLabel: UILabel = {
         let label = UILabel()

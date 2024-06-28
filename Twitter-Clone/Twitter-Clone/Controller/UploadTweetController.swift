@@ -46,7 +46,7 @@ class UploadTweetController: UIViewController {
         return label
     }()
     
-    private let captionTextView = CaptionTextView()
+    private let customTextView = CustomTextView()
     
     // MARK: - Lifecycle
     init(user: User, config: UploadTweetConfiguration) {
@@ -78,7 +78,7 @@ class UploadTweetController: UIViewController {
     }
     
     @objc func handleUploadTweet() {
-        guard let caption = captionTextView.text else { return }
+        guard let caption = customTextView.text else { return }
         TweetService.shared.uploadTweet(caption: caption, type: config) { error, ref in
             if let error = error {
                 print("DEBUG: Failed to upload the tweet \(error.localizedDescription)")
@@ -102,7 +102,7 @@ class UploadTweetController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: actionButton)
         
-        let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
+        let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, customTextView])
         imageCaptionStack.axis = .horizontal
         imageCaptionStack.spacing = 12
         imageCaptionStack.alignment = .leading
@@ -117,7 +117,7 @@ class UploadTweetController: UIViewController {
         profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
         
         actionButton.setTitle(viewModel.actionButtonTitle, for: .normal)
-        captionTextView.placeHolderLabel.text = viewModel.placeHolderText
+        customTextView.placeHolderLabel.text = viewModel.placeHolderText
         
         replyLabel.isHidden = !viewModel.shouldShowReplyLabel
         guard let replyText = viewModel.replyText else { return }

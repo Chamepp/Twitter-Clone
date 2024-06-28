@@ -34,12 +34,7 @@ class EditProfileCell: UITableViewCell {
         return tf
     }()
     
-    var bioTextView: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Bio", isSecure: false, textColor: UIColor.twitterBlue)
-        tf.addTarget(self, action: #selector(handleUpdateUserInfo), for: .editingDidEnd)
-        tf.text = "Bio"
-        return tf
-    }()
+    var customTextView = CustomTextView()
     
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -54,8 +49,9 @@ class EditProfileCell: UITableViewCell {
         addSubview(infoTextField)
         infoTextField.anchor(top: topAnchor, left: titleLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 16, paddingRight: 8)
         
-        addSubview(bioTextView)
-        bioTextView.anchor(top: topAnchor, left: titleLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 16, paddingRight: 8)
+        addSubview(customTextView)
+        customTextView.anchor(top: topAnchor, left: titleLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 16, paddingRight: 8)
+        customTextView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateUserInfo), name: UITextView.textDidEndEditingNotification, object: nil)
     }
@@ -80,12 +76,15 @@ class EditProfileCell: UITableViewCell {
         guard let viewModel = viewModel else { return }
         
         infoTextField.isHidden = viewModel.shouldHideTextField
-        bioTextView.isHidden = viewModel.shouldHideTextView
+        customTextView.isHidden = viewModel.shouldHideTextView
         
         titleLabel.text = viewModel.titleText
         
         
         infoTextField.text = viewModel.optionValue
-        bioTextView.text = viewModel.optionValue
+        customTextView.text = viewModel.optionValue
+        if !customTextView.text.isEmpty {
+            customTextView.placeHolderLabel.isHidden = true
+        }
     }
 }

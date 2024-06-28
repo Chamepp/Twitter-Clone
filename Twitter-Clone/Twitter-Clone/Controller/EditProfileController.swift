@@ -163,6 +163,7 @@ extension EditProfileController: UIImagePickerControllerDelegate {
 extension EditProfileController: EditProfileCellDelegate {
     func updateUserInfo(_ cell: EditProfileCell) {
         guard let viewModel = cell.viewModel else { return }
+        
         userInfoChanged = true
         navigationItem.rightBarButtonItem?.isEnabled = true
         
@@ -175,7 +176,7 @@ extension EditProfileController: EditProfileCellDelegate {
             guard let username = cell.infoTextField.text else { return }
             user.username = username
         case .bio:
-            guard let bio = cell.bioTextView.text else { return }
+            guard let bio = cell.customTextView.text else { return }
             user.bio = bio
         }
     }

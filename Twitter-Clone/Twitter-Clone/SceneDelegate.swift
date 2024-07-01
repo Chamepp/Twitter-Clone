@@ -10,7 +10,6 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var currentNavigation: String?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = scene as? UIWindowScene else { return }
@@ -66,28 +65,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         switch type {
             case "tweet":
-                currentNavigation = "tweet"
-                TweetService.shared.fetchTweet(withTweetID: id) { tweet in
-                    // Assuming you have a UITabBarController set as your window's rootViewController
-                    guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return }
-
-                    // Assuming the feed controller (listViewController) is the first tab (index 0)
-                    if let feedNavigationController = tabBarController.viewControllers?.first as? UINavigationController {
-                        
-                        // Passing the tweet object to the Tweet Controller
-                        let tweetController = TweetController(tweet: tweet)
-                        
-                        // Push TweetController onto the navigation stack of the feed controller's navigation controller
-                        feedNavigationController.pushViewController(tweetController, animated: true)
-                        
-                        // Optionally, you may want to ensure the feed controller is selected in the tab bar
-                        tabBarController.selectedIndex = 0
-                    } else {
-                        print("ERROR: Unable to get feedNavigationController as UINavigationController from tabBarController")
-                    }
-                }
+                navigateToView(for: id)
             default:
                 break
+        }
+    }
+    
+    func navigateToView(for tweetID: String) {
+        TweetService.shared.fetchTweet(withTweetID: tweetID) { tweet in
+            // Assuming you have a UITabBarController set as your window's rootViewController
+            guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return }
+
+            // Assuming the feed controller (listViewController) is the first tab (index 0)
+            if let feedNavigationController = tabBarController.viewControllers?.first as? UINavigationController {
+                
+                // Passing the tweet object to the Tweet Controller
+                let tweetController = TweetController(tweet: tweet)
+                
+                // Push TweetController onto the navigation stack of the feed controller's navigation controller
+                feedNavigationController.pushViewController(tweetController, animated: true)
+                
+                // Optionally, you may want to ensure the feed controller is selected in the tab bar
+                tabBarController.selectedIndex = 0
+            } else {
+                print("ERROR: Unable to get feedNavigationController as UINavigationController from tabBarController")
+            }
         }
     }
 }

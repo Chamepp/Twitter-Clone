@@ -9,10 +9,11 @@ import ActiveLabel
 import UIKit
 
 protocol TweetCellDelegate: class {
+    func handleFetchUser(withUsername username: String)
     func handleProfileImageTapped(_ cell: TweetCell)
     func handleReplyTapped(_ cell: TweetCell)
     func handleLikeTapped(_ cell: TweetCell)
-    func handleFetchUser(withUsername username: String)
+    func handleShareTapped(_ cell: TweetCell)
 }
 
 class TweetCell: UICollectionViewCell {
@@ -163,7 +164,7 @@ class TweetCell: UICollectionViewCell {
     }
     
     @objc func handleShareTapped() {
-        print("DEBUG: Handle share ...")
+        delegate?.handleShareTapped(self)
     }
     // MARK: - Helpers
     func configureUI() {

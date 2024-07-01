@@ -99,4 +99,18 @@ class MainTabController: UITabBarController {
         
         viewControllers = [feed, explore, notifications, conversations]
     }
+    
+    func handleCustomURL(_ url: URL) {
+            let host = url.host
+            let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
+
+            // Perform actions based on the URL
+            print("Handled in ViewController - Host: \(host ?? "")")
+            print("Handled in ViewController - Query Items: \(String(describing: queryItems))")
+            
+            // For example, you can update the label with URL information
+            if let label = view.subviews.first(where: { $0 is UILabel }) as? UILabel {
+                label.text = "URL: \(url.absoluteString)"
+            }
+        }
 }

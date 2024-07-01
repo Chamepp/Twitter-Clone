@@ -133,6 +133,20 @@ extension FeedController: TweetCellDelegate {
         }
     }
     
+    func handleProfileImageTapped(_ cell: TweetCell) {
+        guard let user = cell.tweet?.user else { return }
+        let controller = ProfileController(user: user)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func handleReplyTapped(_ cell: TweetCell) {
+        guard let tweet = cell.tweet else { return }
+        let controller = UploadTweetController(user: tweet.user, config: .reply(tweet))
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
     func handleLikeTapped(_ cell: TweetCell) {
         guard let tweet = cell.tweet else { return }
         
@@ -146,17 +160,8 @@ extension FeedController: TweetCellDelegate {
         }
     }
     
-    func handleReplyTapped(_ cell: TweetCell) {
+    func handleShareTapped(_ cell: TweetCell) {
         guard let tweet = cell.tweet else { return }
-        let controller = UploadTweetController(user: tweet.user, config: .reply(tweet))
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true, completion: nil)
-    }
-    
-    func handleProfileImageTapped(_ cell: TweetCell) {
-        guard let user = cell.tweet?.user else { return }
-        let controller = ProfileController(user: user)
-        navigationController?.pushViewController(controller, animated: true)
+        ActivityController.presentActivity(onController: self, for: tweet.tweetID)
     }
 }

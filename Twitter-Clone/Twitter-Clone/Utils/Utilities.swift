@@ -32,14 +32,20 @@ class Utilities {
         return view
     }
     
-    func textField(withPlaceholder placeholder: String, isSecure: Bool, textColor: UIColor) -> UITextField {
+    func textField(withPlaceholder placeholder: String, isSecure: Bool, isWhiteSpaceAllowed: Bool = true, textColor: UIColor) -> UITextField {
         let tf = UITextField()
         tf.textColor = textColor
         tf.font = UIFont.systemFont(ofSize: 16)
         tf.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: textColor])
+        
+        if !isWhiteSpaceAllowed {
+            tf.delegate = TextFieldDelegate.shared
+        }
+        
         if isSecure {
             tf.isSecureTextEntry = true
         }
+        
         return tf
     }
     
@@ -64,5 +70,17 @@ class Utilities {
         nav.tabBarItem.image = image
         
         return nav
+    }
+}
+
+class TextFieldDelegate: NSObject, UITextFieldDelegate {
+    static let shared = TextFieldDelegate()
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Check if the replacement string contains any whitespace
+        if string.rangeOfCharacter(from: .whitespaces) != nil {
+            return false // Return false to prevent the change
+        }
+        return true // Allow the change
     }
 }

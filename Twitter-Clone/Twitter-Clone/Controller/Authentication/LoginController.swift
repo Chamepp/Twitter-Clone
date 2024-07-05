@@ -28,7 +28,10 @@ class LoginController: UIViewController {
     }()
     
     private let emailTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Email", isSecure: false, textColor: UIColor.white)
+        let tf = Utilities().textField(withPlaceholder: "Email", isSecure: false, isWhiteSpaceAllowed: false, textColor: UIColor.white)
+        tf.keyboardType = .emailAddress
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
         return tf
     }()
     

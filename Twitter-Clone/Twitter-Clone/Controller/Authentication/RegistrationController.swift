@@ -44,7 +44,10 @@ class RegistrationController: UIViewController {
     }()
     
     private let emailTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Email", isSecure: false, textColor: UIColor.white)
+        let tf = Utilities().textField(withPlaceholder: "Email", isSecure: false, isWhiteSpaceAllowed: false, textColor: UIColor.white)
+        tf.keyboardType = .emailAddress
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
         return tf
     }()
     
@@ -55,11 +58,15 @@ class RegistrationController: UIViewController {
     
     private let fullnameTextField: UITextField = {
         let tf = Utilities().textField(withPlaceholder: "Full Name", isSecure: false, textColor: UIColor.white)
+        tf.autocapitalizationType = .words
+        tf.autocorrectionType = .no
         return tf
     }()
     
     private let usernameTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Username", isSecure: false, textColor: UIColor.white)
+        let tf = Utilities().textField(withPlaceholder: "Username", isSecure: false, isWhiteSpaceAllowed: false, textColor: UIColor.white)
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
         return tf
     }()
     

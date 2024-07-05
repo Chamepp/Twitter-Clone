@@ -62,20 +62,20 @@ class ProfileController: UICollectionViewController {
     // MARK: - API
     func fetchTweets() {
         TweetService.shared.fetchTweets(forUser: user) { tweets in
-            self.tweets = tweets
+            self.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
             self.collectionView.reloadData()
         }
     }
     
     func fetchLikedTweets() {
         TweetService.shared.fetchLikes(forUser: user) { tweets in
-            self.likedTweets = tweets
+            self.likedTweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
         }
     }
     
     func fetchReplies() {
         TweetService.shared.fetchReplies(forUser: user) { tweets in
-            self.replies = tweets
+            self.replies = tweets.sorted(by: { $0.timestamp > $1.timestamp })
         }
     }
     

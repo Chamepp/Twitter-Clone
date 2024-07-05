@@ -8,7 +8,7 @@
 import Firebase
 import UIKit
 
-class AlertController: UIAlertController {
+class AlertController {
     static func presentLogoutAlert(onController controller: UIViewController, title: String, message: String, completion: @escaping () -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ActivityController: UIActivityViewController {
+class ActivityController {
     static func presentActivity(onController controller: UIViewController, for tweetID: String) {
         let url = URL(string: "TwitterClone://tweet/id/\(tweetID)")
         

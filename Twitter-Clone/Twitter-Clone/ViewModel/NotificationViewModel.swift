@@ -34,7 +34,7 @@ struct NotificationViewModel {
     var notificationText: NSAttributedString? {
         guard let timestamp = timestampString else { return nil }
         
-        let attributedText = NSMutableAttributedString(string: user.fullname, attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
+        let attributedText = NSMutableAttributedString(string: user.fullname.capitalized, attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
         
         attributedText.append(NSAttributedString(string: " @\(user.username)", attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor.lightGray]))
         

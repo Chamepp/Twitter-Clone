@@ -207,7 +207,7 @@ class TweetHeader: UICollectionReusableView {
         let viewModel = TweetViewModel(tweet: tweet)
         
         captionLabel.text = tweet.caption
-        fullnameLabel.text = tweet.user.fullname
+        fullnameLabel.text = tweet.user.fullname.capitalized
         usernameLabel.text = viewModel.usernameText
         profileImageView.sd_setImage(with: viewModel.profileImageUrl)
         dateLabel.text = viewModel.headerTimeStamp

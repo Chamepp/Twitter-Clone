@@ -198,7 +198,7 @@ class ProfileHeader: UICollectionReusableView {
             logOutButton.layer.cornerRadius = 36 / 2
         }
         
-        fullnameLabel.text = user.fullname
+        fullnameLabel.text = user.fullname.capitalized
         usernameLabel.text = viewModel.usernameText
         bioLabel.text = user.bio
     }

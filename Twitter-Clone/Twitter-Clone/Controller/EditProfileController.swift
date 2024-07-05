@@ -170,10 +170,10 @@ extension EditProfileController: EditProfileCellDelegate {
         switch viewModel.option {
             
         case .fullname:
-            guard let fullname = cell.infoTextField.text else { return }
+            guard let fullname = cell.infoTextField.text?.lowercased() else { return }
             user.fullname = fullname
         case .username:
-            guard let username = cell.infoTextField.text else { return }
+            guard let username = cell.infoTextField.text?.lowercased() else { return }
             user.username = username
         case .bio:
             guard let bio = cell.customTextView.text else { return }

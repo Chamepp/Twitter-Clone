@@ -70,6 +70,6 @@ class UserCell: UITableViewCell {
         profileImageView.sd_setImage(with: user.profileImageUrl)
         
         usernameLabel.text = user.username
-        fullnameLabel.text = user.fullname
+        fullnameLabel.text = user.fullname.capitalized
     }
 }

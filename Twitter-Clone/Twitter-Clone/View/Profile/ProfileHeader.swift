@@ -28,7 +28,7 @@ class ProfileHeader: UICollectionReusableView {
     
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .twitterBlue
+        view.backgroundColor = UIColor.twitterBlue
         
         view.addSubview(backButton)
         backButton.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 42, paddingLeft: 16)

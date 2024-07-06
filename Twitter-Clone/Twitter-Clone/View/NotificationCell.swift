@@ -49,7 +49,7 @@ class NotificationCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         let stack = UIStackView(arrangedSubviews: [profileImageView, notificationLabel])
-        stack.spacing = 0
+        stack.spacing = 8
         stack.alignment = .center
         
         

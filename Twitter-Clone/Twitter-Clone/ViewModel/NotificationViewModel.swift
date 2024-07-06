@@ -23,11 +23,11 @@ struct NotificationViewModel {
     
     var notificationMessage: String {
         switch type {
-        case .follow: return " started following you"
-        case .like: return " liked your tweet"
-        case .reply: return " replied to one of your tweets"
-        case .retweet: return " retweeted your tweet"
-        case .mention: return " mentioned you in a tweet"
+            case .follow: return " started following you"
+            case .like: return " liked your tweet"
+            case .reply: return " replied to one of your tweets"
+            case .retweet: return " retweeted your tweet"
+            case .mention: return " mentioned you in a tweet"
         }
     }
     
@@ -36,7 +36,7 @@ struct NotificationViewModel {
         
         let attributedText = NSMutableAttributedString(string: user.fullname.capitalized, attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
         
-        attributedText.append(NSAttributedString(string: " @\(user.username)", attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor.lightGray]))
+        attributedText.append(NSAttributedString(string: notificationMessage, attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor.lightGray]))
         
         attributedText.append(NSAttributedString(string: " . \(timestamp)", attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor.lightGray]))
         

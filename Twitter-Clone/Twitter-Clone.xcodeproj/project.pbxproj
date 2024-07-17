@@ -15,6 +15,7 @@
 		412F32F32C11F60000BC6E25 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412F32F22C11F60000BC6E25 /* NotificationService.swift */; };
 		412F32F52C12156100BC6E25 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412F32F42C12156100BC6E25 /* NotificationCell.swift */; };
 		412F32F72C12F6F300BC6E25 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412F32F62C12F6F300BC6E25 /* NotificationViewModel.swift */; };
+		4152551D2C468A2200483152 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4152551C2C468A2200483152 /* NotificationManager.swift */; };
 		416731E72BF629EF00544352 /* UploadTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416731E62BF629EF00544352 /* UploadTweetController.swift */; };
 		416731E92BF759DE00544352 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416731E82BF759DE00544352 /* CustomTextView.swift */; };
 		416731EB2BF770EF00544352 /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416731EA2BF770EF00544352 /* TweetService.swift */; };
@@ -66,6 +67,7 @@
 		412F32F22C11F60000BC6E25 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		412F32F42C12156100BC6E25 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		412F32F62C12F6F300BC6E25 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		4152551C2C468A2200483152 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		416731E62BF629EF00544352 /* UploadTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetController.swift; sourceTree = "<group>"; };
 		416731E82BF759DE00544352 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		416731EA2BF770EF00544352 /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				4176AB4F2BE6455200F39712 /* ConversationsController.swift */,
 				416731E62BF629EF00544352 /* UploadTweetController.swift */,
 				41714B372BFC9D7F004B9215 /* ProfileController.swift */,
+				4152551C2C468A2200483152 /* NotificationManager.swift */,
 				41714B432C034E54004B9215 /* TweetController.swift */,
 				41F8920D2C1DA6B300314B83 /* EditProfileController.swift */,
 				417881D42C25694600089A05 /* AlertController.swift */,
@@ -420,6 +423,7 @@
 				41714B402BFF7BD0004B9215 /* ProfileHeaderViewModel.swift in Sources */,
 				416731E72BF629EF00544352 /* UploadTweetController.swift in Sources */,
 				41B1A2892BF35A4F00D40B82 /* User.swift in Sources */,
+				4152551D2C468A2200483152 /* NotificationManager.swift in Sources */,
 				41F892112C1DAAB100314B83 /* EditProfileHeader.swift in Sources */,
 				4176AB522BEA2A5600F39712 /* Extentions.swift in Sources */,
 				4176AB2E2BE520FD00F39712 /* SceneDelegate.swift in Sources */,

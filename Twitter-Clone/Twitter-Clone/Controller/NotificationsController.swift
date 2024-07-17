@@ -25,6 +25,7 @@ class NotificationsController: UITableViewController {
         
         configureUI()
         fetchNotifications()
+        requestNotificationPermissions()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +73,10 @@ class NotificationsController: UITableViewController {
         let refreshController = UIRefreshControl()
         tableView.refreshControl = refreshController
         refreshController.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+    }
+    
+    func requestNotificationPermissions() {
+        NotificationManager.shared.requestNotificationAuthorization()
     }
 }
 

@@ -29,6 +29,7 @@ class FeedController: UICollectionViewController {
         
         configureUI()
         fetchTweets()
+        scheduleNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +94,10 @@ class FeedController: UICollectionViewController {
         profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
+    }
+    
+    func scheduleNotification() {
+        NotificationManager.shared.scheduleNotification(identifier: .appActivity)
     }
 }
 

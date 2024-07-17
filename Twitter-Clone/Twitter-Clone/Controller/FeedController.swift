@@ -167,6 +167,6 @@ extension FeedController: TweetCellDelegate {
     
     func handleShareTapped(_ cell: TweetCell) {
         guard let tweet = cell.tweet else { return }
-        ActivityController.presentActivity(onController: self, for: tweet.tweetID)
+        ActivityController.shared.presentActivity(onController: self, for: tweet.tweetID)
     }
 }

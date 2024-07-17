@@ -9,7 +9,9 @@ import Firebase
 import UIKit
 
 class AlertController {
-    static func presentLogoutAlert(onController controller: UIViewController, title: String, message: String, completion: @escaping () -> Void) {
+    static let shared = AlertController()
+    
+    func presentLogoutAlert(onController controller: UIViewController, title: String, message: String, completion: @escaping () -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         let alertLogoutAction = UIAlertAction(title: "Logout", style: .destructive) { _ in

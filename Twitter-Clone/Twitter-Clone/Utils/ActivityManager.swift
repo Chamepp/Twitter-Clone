@@ -7,8 +7,8 @@
 
 import UIKit
 
-class ActivityController {
-    static let shared = ActivityController()
+class ActivityManager {
+    static let shared = ActivityManager()
     
     func presentActivity(onController controller: UIViewController, for tweetID: String) {
         let url = URL(string: "TwitterClone://tweet/id/\(tweetID)")

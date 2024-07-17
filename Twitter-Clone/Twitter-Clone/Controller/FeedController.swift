@@ -97,7 +97,7 @@ class FeedController: UICollectionViewController {
     }
     
     func scheduleNotification() {
-        NotificationManager.shared.scheduleNotification(identifier: .appActivity)
+        PushNotificationManager.shared.scheduleNotification(identifier: .appActivity)
     }
 }
 
@@ -167,6 +167,6 @@ extension FeedController: TweetCellDelegate {
     
     func handleShareTapped(_ cell: TweetCell) {
         guard let tweet = cell.tweet else { return }
-        ActivityController.shared.presentActivity(onController: self, for: tweet.tweetID)
+        ActivityManager.shared.presentActivity(onController: self, for: tweet.tweetID)
     }
 }

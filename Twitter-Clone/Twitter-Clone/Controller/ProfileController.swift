@@ -150,7 +150,7 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
 // MARK: - ProfileHeaderDelegate
 extension ProfileController: ProfileHeaderDelegate {
     func logUserOut() {
-        AlertController.shared.presentLogoutAlert(
+        AlertManager.shared.presentLogoutAlert(
             onController: self,
             title: "Log Out",
             message: "Are you sure you want to log out? You will need to log in again to access your account."

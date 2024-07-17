@@ -78,7 +78,7 @@ class NotificationsController: UITableViewController {
     }
     
     func requestNotificationPermissions() {
-        NotificationManager.shared.requestNotificationAuthorization()
+        PushNotificationManager.shared.requestNotificationAuthorization()
     }
 }
 

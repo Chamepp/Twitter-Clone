@@ -88,7 +88,7 @@ class UploadTweetController: UIViewController {
                 NotificationService.shared.uploadNotification(type: .reply, tweet: tweet)
             }
         }
-        NotificationManager.shared.scheduleNotification(identifier: .tweetActivity)
+        PushNotificationManager.shared.scheduleNotification(identifier: .tweetActivity)
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -7,8 +7,8 @@
 
 import UIKit
 
-class NotificationManager {
-    static let shared = NotificationManager()
+class PushNotificationManager {
+    static let shared = PushNotificationManager()
     let notificationCenter = UNUserNotificationCenter.current()
     
     enum notificationIdentifier: String {

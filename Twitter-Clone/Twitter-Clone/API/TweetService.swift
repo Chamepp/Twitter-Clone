@@ -32,7 +32,7 @@ struct TweetService {
             
             REF_TWEET_REPLIES.child(tweet.tweetID).childByAutoId().updateChildValues(values) { err, ref in
                 guard let replyKey = ref.key else { return }
-                REF_USER_REPLIES.child(uid).updateChildValues([tweet.tweetID: replyKey])
+                REF_USER_REPLIES.child(uid).updateChildValues([tweet.tweetID: replyKey], withCompletionBlock: completion)
             }
         }
     }

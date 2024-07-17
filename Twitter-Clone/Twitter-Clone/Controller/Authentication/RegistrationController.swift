@@ -24,22 +24,22 @@ class RegistrationController: UIViewController {
     }()
     
     private lazy var emailContainerView: UIView = {
-        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_mail_outline_white_2x-1"), textField: emailTextField)
+        let view = Utilities().inputContainerView(withImage: UIImage(named: "mail")?.withRenderingMode(.alwaysOriginal), textField: emailTextField)
         return view
     }()
     
     private lazy var passwordContainerView: UIView = {
-        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_lock_outline_white_2x"), textField: passwordTextField)
+        let view = Utilities().inputContainerView(withImage: UIImage(named: "password"), textField: passwordTextField)
         return view
     }()
     
     private lazy var fullnameContainerView: UIView = {
-        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_person_outline_white_2x"), textField: fullnameTextField)
+        let view = Utilities().inputContainerView(withImage: UIImage(named: "name"), textField: fullnameTextField)
         return view
     }()
     
     private lazy var usernameContainerView: UIView = {
-        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_person_outline_white_2x"), textField: usernameTextField)
+        let view = Utilities().inputContainerView(withImage: UIImage(named: "user"), textField: usernameTextField)
         return view
     }()
     

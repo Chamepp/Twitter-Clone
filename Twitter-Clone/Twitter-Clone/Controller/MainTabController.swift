@@ -89,13 +89,13 @@ class MainTabController: UITabBarController {
     
     
     func configureViewControllers() {
-        let feed = Utilities().templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: FeedController(collectionViewLayout: UICollectionViewFlowLayout()))
+        let feed = Utilities().templateNavigationController(image: UIImage(named: "home"), rootViewController: FeedController(collectionViewLayout: UICollectionViewFlowLayout()))
         
-        let explore = Utilities().templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: ExploreController())
+        let explore = Utilities().templateNavigationController(image: UIImage(named: "search"), rootViewController: ExploreController())
 
-        let notifications = Utilities().templateNavigationController(image: UIImage(named: "like_unselected"), rootViewController: NotificationsController())
+        let notifications = Utilities().templateNavigationController(image: UIImage(named: "notification"), rootViewController: NotificationsController())
 
-        let conversations = Utilities().templateNavigationController(image: UIImage(named: "ic_mail_outline_white_2x-1"), rootViewController: ConversationsController())
+        let conversations = Utilities().templateNavigationController(image: UIImage(named: "news"), rootViewController: ConversationsController())
         
         viewControllers = [feed, explore, notifications, conversations]
     }
@@ -104,7 +104,7 @@ class MainTabController: UITabBarController {
             let host = url.host
             let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
 
-            // Perform actions based on the URL
+        // Perform actions based on the URL
             print("Handled in ViewController - Host: \(host ?? "")")
             print("Handled in ViewController - Query Items: \(String(describing: queryItems))")
             

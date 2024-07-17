@@ -74,7 +74,7 @@ class TweetHeader: UICollectionReusableView {
     private lazy var optionsButtons: UIButton = {
         let button = UIButton()
         button.tintColor = .lightGray
-        button.setImage(UIImage(named: "down_arrow_24pt"), for: .normal)
+        button.setImage(UIImage(named: "down_arrow"), for: .normal)
         button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
         return button
     }()

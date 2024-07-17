@@ -38,7 +38,7 @@ class ProfileHeader: UICollectionReusableView {
     
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "baseline_arrow_back_white_24dp")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(UIImage(named: "back_arrow")?.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(handleDismissal), for: .touchUpInside)
         return button
     }()

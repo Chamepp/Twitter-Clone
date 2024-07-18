@@ -93,11 +93,22 @@ class FeedController: UICollectionViewController {
         profileImageView.layer.masksToBounds = true
         profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
+        // Initial state of the cell (before animation)
+        profileImageView.alpha = 0
+        
+        // Animate to the final state (after animation)
+        UIView.animate(withDuration: 0.5) {
+            profileImageView.alpha = 1
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
+        }
     }
     
     func scheduleNotification() {
         PushNotificationManager.shared.scheduleNotification(identifier: .appActivity)
+    }
+    
+    func checkIfFeedEmpty() {
+        tweets.count == 0
     }
 }
 
@@ -117,6 +128,14 @@ extension FeedController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = TweetController(tweet: tweets[indexPath.row])
         navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.alpha = 0
+        
+        UIView.animate(withDuration: 0.5) {
+            cell.alpha = 1
+        }
     }
 }
 

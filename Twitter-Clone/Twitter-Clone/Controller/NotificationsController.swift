@@ -93,6 +93,13 @@ extension NotificationsController {
         cell.delegate = self
         return cell
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.alpha = 0
+        
+        UIView.animate(withDuration: 0.5) {
+            cell.alpha = 1
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate

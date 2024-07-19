@@ -33,26 +33,39 @@ struct AuthService {
         let filename = NSUUID().uuidString
         let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
         
+        guard let topController = UIApplication.shared.topViewController() else {
+            print("DEBUG: No top view controller found")
+            return
+        }
+        
         storageRef.putData(imageData, metadata: nil) { metta, error in
             storageRef.downloadURL { url, error in
                 guard let profileImageUrl = url?.absoluteString else { return }
                 
                 Auth.auth().createUser(withEmail: email, password: password) { result, error in
                     if let error = error {
-                        print("Could'nt Register The User: \(error.localizedDescription)")
+                        AlertManager.shared.presentCredentialsAlert(onController: topController, title: "Error", message: error.localizedDescription)
+                        print("DEBUG: Couldn't Register The User: \(error.localizedDescription)")
                         return
                     }
                     
                     guard let uid = result?.user.uid else { return }
                     
-                    let values = [
+                    let data = [
                         "email": email,
                         "username": username,
                         "fullname": fullname,
                         "profileImageUrl": profileImageUrl
                     ]
                     
-                    REF_USERS.child(uid).updateChildValues(values, withCompletionBlock: completion)
+                    let allValuesAvailable = data.values.allSatisfy { !$0.isEmpty }
+                    
+                    if allValuesAvailable {
+                        REF_USERS.child(uid).updateChildValues(data, withCompletionBlock: completion)
+                    } else {
+                        AlertManager.shared.presentCredentialsAlert(onController: topController, title: "Missing Credentials", message: "Please fill all the required data")
+                        return
+                    }
                 }
             }
         }

@@ -73,6 +73,7 @@ class LoginController: UIViewController {
         
         AuthService.shared.logUserIn(withEmail: email, password: password) { result, error in
             if let error = error {
+                AlertManager.shared.presentCredentialsAlert(onController: self, title: "Invalid Credentials", message: "The email or password you entered is incorrect. Please try again.")
                 print("DEBUG: \(error.localizedDescription)")
                 return
             }

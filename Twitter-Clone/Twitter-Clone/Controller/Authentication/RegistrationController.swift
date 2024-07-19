@@ -103,6 +103,7 @@ class RegistrationController: UIViewController {
     
     @objc func handleRegistration() {
         guard let profileImage = profileImage else {
+            AlertManager.shared.presentCredentialsAlert(onController: self, title: "Missing Credentials", message: "Please select a profile image.")
             print("DEBUG: Please select a profile image.")
             return
         }
@@ -115,6 +116,7 @@ class RegistrationController: UIViewController {
         
         AuthService.shared.registerUser(credentials: credentials) { error, ref in
             if let error = error {
+                AlertManager.shared.presentCredentialsAlert(onController: self, title: "Error", message: "\(error.localizedDescription)")
                 print("DEBUG: \(error.localizedDescription)")
                 return
             }
@@ -128,6 +130,7 @@ class RegistrationController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
     @objc func handleAddProfilePhoto() {
         present(imagePicker, animated: true, completion: nil)
     }

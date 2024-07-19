@@ -24,4 +24,14 @@ class AlertManager {
         
         controller.present(alert, animated: true, completion: nil)
     }
+    
+    func presentCredentialsAlert(onController controller: UIViewController, title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let alertOkAction = UIAlertAction(title: "Ok", style: .default)
+        
+        alert.addAction(alertOkAction)
+        
+        controller.present(alert, animated: true, completion: nil)
+    }
 }

@@ -11,6 +11,10 @@ import UIKit
 protocol TweetHeaderDelegate: class {
     func showActionSheet()
     func handleFetchUser(withUsername username: String)
+    func handleProfileImageTapped(_ header: TweetHeader)
+    func handleReplyTapped(_ header: TweetHeader)
+    func handleLikeTapped(_ header: TweetHeader)
+    func handleShareTapped(_ header: TweetHeader)
 }
 
 class TweetHeader: UICollectionReusableView {
@@ -109,7 +113,7 @@ class TweetHeader: UICollectionReusableView {
     
     private lazy var commentButton: UIButton = {
         let button = createButton(withImage: "comment")
-        button.addTarget(self, action: #selector(handleCommentTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleReplyTapped), for: .touchUpInside)
         return button
     }()
     
@@ -159,7 +163,7 @@ class TweetHeader: UICollectionReusableView {
         statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 12, height: 40)
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
-        actionStack.spacing = 72
+        actionStack.spacing = 62
         actionStack.distribution = .fillEqually
         
         addSubview(actionStack)
@@ -177,27 +181,27 @@ class TweetHeader: UICollectionReusableView {
     
     // MARK: - Selectors
     @objc func handleProfileImageTapped() {
-        
+        delegate?.handleProfileImageTapped(self)
     }
     
     @objc func showActionSheet() {
         delegate?.showActionSheet()
     }
     
-    @objc func handleCommentTapped() {
-        
+    @objc func handleReplyTapped() {
+        delegate?.handleReplyTapped(self)
     }
     
     @objc func handleRetweetTapped() {
-        
+        print("DEBUG: Handle Retweet ...")
     }
     
     @objc func handleLikeTapped() {
-        
+        delegate?.handleLikeTapped(self)
     }
     
     @objc func handleShareTapped() {
-        
+        delegate?.handleShareTapped(self)
     }
     
     // MARK: - Helpers

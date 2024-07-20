@@ -66,7 +66,7 @@ class TweetCell: UICollectionViewCell {
         button.setImage(UIImage(named: "comment"), for: .normal)
         button.tintColor = .darkGray
         button.setDimensions(width: 20, height: 20)
-        button.addTarget(self, action: #selector(handleCommentTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleReplyTapped), for: .touchUpInside)
         return button
     }()
     
@@ -151,7 +151,7 @@ class TweetCell: UICollectionViewCell {
         delegate?.handleProfileImageTapped(self)
     }
     
-    @objc func handleCommentTapped() {
+    @objc func handleReplyTapped() {
         delegate?.handleReplyTapped(self)
     }
     

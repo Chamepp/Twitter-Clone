@@ -98,14 +98,46 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - TweetHeaderDelegate
 extension TweetController: TweetHeaderDelegate {
-    func handleFetchUser(withUsername username: String) {
+    func handleProfileImageTapped(_ header: TweetHeader) {
+        guard let user = header.tweet?.user else { return }
+        let controller = ProfileController(user: user)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func handleReplyTapped(_ header: TweetHeader) {
+        guard let tweet = header.tweet else { return }
+        let controller = UploadTweetController(user: tweet.user, config: .reply(tweet))
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
+    func handleLikeTapped(_ header: TweetHeader) {
+        guard let tweet = header.tweet else { return }
+        
+        TweetService.shared.likeTweets(tweet: tweet) { err, ref in
+            header.tweet?.didLike.toggle()
+            let likes = tweet.didLike ? tweet.likes - 1 : tweet.likes + 1
+            header.tweet?.likes = likes
+
+            guard !tweet.didLike else { return }
+            NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
+        }
+    }
+    
+    func handleShareTapped(_ header: TweetHeader) {
+        guard let tweet = header.tweet else { return }
+        ActivityManager.shared.presentActivity(onController: self, for: tweet.tweetID)
+    }
+    
+    @objc func handleFetchUser(withUsername username: String) {
         UserService.shared.fetchUser(withUsername: username) { user in
             let controller = ProfileController(user: user)
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     
-    func showActionSheet() {
+    @objc func showActionSheet() {
         if tweet.user.isCurrentUser {
             showActionSheet(forUser: tweet.user)
         } else {

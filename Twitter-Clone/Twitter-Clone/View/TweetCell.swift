@@ -128,7 +128,7 @@ class TweetCell: UICollectionViewCell {
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
         actionStack.axis = .horizontal
-        actionStack.spacing = 72
+        actionStack.spacing = 62
         
         addSubview(actionStack)
         actionStack.centerX(inView: self)

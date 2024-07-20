@@ -19,7 +19,7 @@ class ActionSheetCell: UITableViewCell {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-        iv.image = #imageLiteral(resourceName: "twitter_logo_blue")
+        iv.image = UIImage(named: "twitter_logo_black")
         return iv
     }()
     

@@ -106,10 +106,6 @@ class FeedController: UICollectionViewController {
     func scheduleNotification() {
         PushNotificationManager.shared.scheduleNotification(identifier: .appActivity)
     }
-    
-    func checkIfFeedEmpty() {
-        tweets.count == 0
-    }
 }
 
 // MARK: - UICollectionViewDelegate/DataSource

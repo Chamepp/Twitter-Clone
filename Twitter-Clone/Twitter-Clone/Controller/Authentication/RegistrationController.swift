@@ -15,10 +15,9 @@ class RegistrationController: UIViewController {
     private let imagePicker = UIImagePickerController()
     private var profileImage: UIImage?
     
-    private let plusPhotoButton: UIButton = {
+    private let imagePickerButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "plus_photo"), for: .normal)
-        button.tintColor = .white
+        button.setImage(UIImage(named: "plus_photo")?.withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(handleAddProfilePhoto), for: .touchUpInside)
         return button
     }()
@@ -44,7 +43,7 @@ class RegistrationController: UIViewController {
     }()
     
     private let emailTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Email", isSecure: false, isWhiteSpaceAllowed: false, textColor: UIColor.white)
+        let tf = Utilities().textField(withPlaceholder: "Email", isSecure: false, isWhiteSpaceAllowed: false, textColor: UIColor.black)
         tf.keyboardType = .emailAddress
         tf.autocapitalizationType = .none
         tf.autocorrectionType = .no
@@ -52,19 +51,19 @@ class RegistrationController: UIViewController {
     }()
     
     private let passwordTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Password", isSecure: true, textColor: UIColor.white)
+        let tf = Utilities().textField(withPlaceholder: "Password", isSecure: true, textColor: UIColor.black)
         return tf
     }()
     
     private let fullnameTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Full Name", isSecure: false, textColor: UIColor.white)
+        let tf = Utilities().textField(withPlaceholder: "Full Name", isSecure: false, textColor: UIColor.black)
         tf.autocapitalizationType = .words
         tf.autocorrectionType = .no
         return tf
     }()
     
     private let usernameTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Username", isSecure: false, isWhiteSpaceAllowed: false, textColor: UIColor.white)
+        let tf = Utilities().textField(withPlaceholder: "Username", isSecure: false, isWhiteSpaceAllowed: false, textColor: UIColor.black)
         tf.autocapitalizationType = .none
         tf.autocorrectionType = .no
         return tf
@@ -73,8 +72,8 @@ class RegistrationController: UIViewController {
     private let registrationButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
-        button.setTitleColor(.twitterBlue, for: .normal)
-        button.backgroundColor = .white
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .twitterBlue
         button.heightAnchor.constraint(lessThanOrEqualToConstant: 50).isActive = true
         button.layer.cornerRadius = 5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -137,14 +136,14 @@ class RegistrationController: UIViewController {
     
     // MARK: - Helpers
     func configureUI() {
-        view.backgroundColor = .twitterBlue
+        view.backgroundColor = .white
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         
-        view.addSubview(plusPhotoButton)
-        plusPhotoButton.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor)
-        plusPhotoButton.setDimensions(width: 128, height: 128)
+        view.addSubview(imagePickerButton)
+        imagePickerButton.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor, paddingTop: 50)
+        imagePickerButton.setDimensions(width: 100, height: 100)
         
         let stack = UIStackView(arrangedSubviews: [
             emailContainerView, passwordContainerView, fullnameContainerView, usernameContainerView, registrationButton
@@ -154,10 +153,11 @@ class RegistrationController: UIViewController {
         stack.distribution = .fillEqually
         
         view.addSubview(stack)
-        stack.anchor(top: plusPhotoButton.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
+        stack.anchor(top: imagePickerButton.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 50, paddingLeft: 32, paddingRight: 32)
         
         view.addSubview(alreadyHaveAccountButton)
-        alreadyHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingTop: 32, paddingLeft: 40, paddingRight: 40)
+        alreadyHaveAccountButton.anchor(top: stack.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 10)
+        alreadyHaveAccountButton.centerX(inView: view)
     }
 }
 
@@ -167,14 +167,14 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
         guard let profileImage = info[.editedImage] as? UIImage else { return }
         self.profileImage = profileImage
         
-        plusPhotoButton.layer.cornerRadius = 128 / 2
-        plusPhotoButton.layer.masksToBounds = true
-        plusPhotoButton.imageView?.contentMode = .scaleAspectFit
-        plusPhotoButton.imageView?.clipsToBounds = true
-        plusPhotoButton.layer.borderColor = UIColor.white.cgColor
-        plusPhotoButton.layer.borderWidth = 3
+        imagePickerButton.layer.cornerRadius = 20
+        imagePickerButton.layer.masksToBounds = true
+        imagePickerButton.imageView?.contentMode = .scaleAspectFit
+        imagePickerButton.imageView?.clipsToBounds = true
+        imagePickerButton.layer.borderColor = UIColor.black.cgColor
+        imagePickerButton.layer.borderWidth = 3
         
-        self.plusPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.imagePickerButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
         
         dismiss(animated: true, completion: nil)
     }

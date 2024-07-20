@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "name-24(@1×).png",
+      "filename" : "fingerprint-24(@1×).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "name-48(@2×).png",
+      "filename" : "fingerprint-48(@2×).png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "name-72(@3×).png",
+      "filename" : "fingerprint-72(@3×).png",
       "idiom" : "universal",
       "scale" : "3x"
     }

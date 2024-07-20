@@ -83,7 +83,7 @@ class RegistrationController: UIViewController {
     }()
     
     private let alreadyHaveAccountButton: UIButton = {
-        let button = Utilities().attributedButton("Already have an account ?", " Login")
+        let button = Utilities().attributedButton("Already have an account ? Login")
         button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
         return button
     }()

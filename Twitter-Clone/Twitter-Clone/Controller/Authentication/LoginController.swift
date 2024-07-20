@@ -13,8 +13,16 @@ class LoginController: UIViewController {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
-        iv.image = #imageLiteral(resourceName: "TwitterLogo")
+        iv.image = UIImage(named: "twitter_logo_black")
         return iv
+    }()
+    
+    private let logInLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Log In To Twitter"
+        label.font = UIFont.boldSystemFont(ofSize: 35)
+        label.textColor = .black
+        return label
     }()
     
     private lazy var emailContainerView: UIView = {
@@ -28,7 +36,7 @@ class LoginController: UIViewController {
     }()
     
     private let emailTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Email", isSecure: false, isWhiteSpaceAllowed: false, textColor: UIColor.white)
+        let tf = Utilities().textField(withPlaceholder: "Email", isSecure: false, isWhiteSpaceAllowed: false, textColor: UIColor.black)
         tf.keyboardType = .emailAddress
         tf.autocapitalizationType = .none
         tf.autocorrectionType = .no
@@ -36,15 +44,15 @@ class LoginController: UIViewController {
     }()
     
     private let passwordTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Password", isSecure: true, textColor: UIColor.white)
+        let tf = Utilities().textField(withPlaceholder: "Password", isSecure: true, textColor: UIColor.black)
         return tf
     }()
     
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Log In", for: .normal)
-        button.setTitleColor(.twitterBlue, for: .normal)
-        button.backgroundColor = .white
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .twitterBlue
         button.heightAnchor.constraint(lessThanOrEqualToConstant: 50).isActive = true
         button.layer.cornerRadius = 5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -53,9 +61,22 @@ class LoginController: UIViewController {
     }()
     
     private let dontHaveAccountButton: UIButton = {
-        let button = Utilities().attributedButton("Don't have an account ?", " Sign Up")
+        let button = Utilities().attributedButton("Sign up for Twitter")
         button.addTarget(self, action: #selector(handleShowSignup), for: .touchUpInside)
         return button
+    }()
+    
+    private let forgotPasswordButton: UIButton = {
+        let button = Utilities().attributedButton("Forgot Password ?")
+        button.addTarget(self, action: #selector(handleForgotPassword), for: .touchUpInside)
+        return button
+    }()
+    
+    private let seperatorCircle: UILabel = {
+        let label = UILabel()
+        label.text = "·"
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        return label
     }()
     
     
@@ -93,24 +114,35 @@ class LoginController: UIViewController {
         navigationController?.pushViewController(controller, animated: true)
     }
     
+    @objc func handleForgotPassword() {
+        print("DEBUG: Handling forgot password")
+    }
+    
     // MARK: - Helpers
     func configureUI() {
-        view.backgroundColor = .twitterBlue
+        view.backgroundColor = .white
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isHidden = true
         
         view.addSubview(logoImageView)
-        logoImageView.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor)
-        logoImageView.setDimensions(width: 150, height: 150)
+        logoImageView.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor, paddingTop: 100)
+        logoImageView.setDimensions(width: 100, height: 100)
         
-        let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView, loginButton])
-        stack.axis = .vertical
-        stack.spacing = 20
-        stack.distribution = .fillEqually
+        let fieldStack = UIStackView(arrangedSubviews: [logInLabel, emailContainerView, passwordContainerView, loginButton])
+        fieldStack.axis = .vertical
+        fieldStack.spacing = 20
+        fieldStack.distribution = .fillEqually
         
-        view.addSubview(stack)
-        stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
-        view.addSubview(dontHaveAccountButton)
-        dontHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 40, paddingRight: 40)
+        view.addSubview(fieldStack)
+        fieldStack.anchor(left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
+        fieldStack.centerY(inView: view)
+        
+        let labelStack = UIStackView(arrangedSubviews: [forgotPasswordButton, seperatorCircle, dontHaveAccountButton])
+        labelStack.axis = .horizontal
+        labelStack.distribution = .equalSpacing
+        
+        view.addSubview(labelStack)
+        labelStack.anchor(top: fieldStack.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 10, paddingLeft: 60, paddingRight: 60)
+        labelStack.centerX(inView: view)
     }
 }

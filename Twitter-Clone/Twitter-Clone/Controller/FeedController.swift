@@ -202,7 +202,7 @@ extension FeedController: TweetCellDelegate {
             cell.tweet?.retweetCount = retweets
             
             guard !tweet.didRetweet else { return }
-//            NotificationService.shared.uploadNotification(type: .retweet, tweet: tweet)
+            NotificationService.shared.uploadNotification(type: .retweet, tweet: tweet)
         }
     }
     

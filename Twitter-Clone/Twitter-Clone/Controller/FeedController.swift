@@ -50,6 +50,7 @@ class FeedController: UICollectionViewController {
         TweetService.shared.fetchTweets { tweets in
             self.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
             self.checkIfUserLikedTweets()
+            self.checkIfUserRetweetedTweets()
             
             self.collectionView.refreshControl?.endRefreshing()
         }
@@ -62,6 +63,18 @@ class FeedController: UICollectionViewController {
                 
                 if let index = self.tweets.firstIndex(where: { $0.tweetID == tweet.tweetID }) {
                     self.tweets[index].didLike = true
+                }
+            }
+        }
+    }
+    
+    func checkIfUserRetweetedTweets() {
+        self.tweets.forEach { tweet in
+            TweetService.shared.checkIfUserRetweetedTweet(tweet) { didRetweet in
+                guard didRetweet == true else { return }
+                
+                if let index = self.tweets.firstIndex(where: { $0.tweetID == tweet.tweetID }) {
+                    self.tweets[index].didRetweet = true
                 }
             }
         }
@@ -177,6 +190,19 @@ extension FeedController: TweetCellDelegate {
             
             guard !tweet.didLike else { return }
             NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
+        }
+    }
+    
+    func handleRetweetTapped(_ cell: TweetCell) {
+        guard let tweet = cell.tweet else { return }
+        
+        TweetService.shared.retweetTweets(tweet: tweet) { err, ref in
+            cell.tweet?.didRetweet.toggle()
+            let retweets = tweet.didRetweet ? tweet.retweetCount - 1 : tweet.retweetCount + 1
+            cell.tweet?.retweetCount = retweets
+            
+            guard !tweet.didRetweet else { return }
+//            NotificationService.shared.uploadNotification(type: .retweet, tweet: tweet)
         }
     }
     

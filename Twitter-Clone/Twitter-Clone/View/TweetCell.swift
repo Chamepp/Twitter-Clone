@@ -14,6 +14,7 @@ protocol TweetCellDelegate: class {
     func handleReplyTapped(_ cell: TweetCell)
     func handleLikeTapped(_ cell: TweetCell)
     func handleShareTapped(_ cell: TweetCell)
+    func handleRetweetTapped(_ cell: TweetCell)
 }
 
 class TweetCell: UICollectionViewCell {
@@ -160,7 +161,7 @@ class TweetCell: UICollectionViewCell {
     }
     
     @objc func handleRetweetTapped() {
-        print("DEBUG: Handle retweet ...")
+        delegate?.handleRetweetTapped(self)
     }
     
     @objc func handleShareTapped() {
@@ -174,8 +175,11 @@ class TweetCell: UICollectionViewCell {
         
         profileImageView.sd_setImage(with: viewModel.profileImageUrl)
         infoLabel.attributedText = viewModel.userInfoText
+        
         likeButton.tintColor = viewModel.likeButtonTintColor
         likeButton.setImage(viewModel.likeButtonImage, for: .normal)
+        
+        retweetButton.tintColor = viewModel.retweetButtonTintColor
         
         replyLabel.isHidden = viewModel.shouldHideReplyLabel
         replyLabel.text = viewModel.replyText

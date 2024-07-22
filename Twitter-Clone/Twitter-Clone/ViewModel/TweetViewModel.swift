@@ -62,6 +62,10 @@ class TweetViewModel {
         return tweet.didLike ? .red : .lightGray
     }
     
+    var retweetButtonTintColor: UIColor {
+        return tweet.didRetweet ? .systemGreen : .lightGray
+    }
+    
     var likeButtonImage: UIImage {
         let imageName = tweet.didLike ? "like_filled" : "like"
         return UIImage(named: imageName)!

@@ -23,11 +23,17 @@ class ProfileController: UICollectionViewController {
     
     private lazy var tweets = [Tweet]()
     private lazy var likedTweets = [Tweet]()
+    private lazy var retweetedTweets = [Tweet]()
     private lazy var replies = [Tweet]()
+    
+    private lazy var combinedTweets = [Tweet]()
+    
+    private var tweetsFetched = false
+    private var retweetsFetched = false
     
     private var currentDataSource: [Tweet] {
         switch selectedFilter {
-        case .tweets: return tweets
+        case .tweets: return combinedTweets
         case .replies: return replies
         case .likes: return likedTweets
         }
@@ -47,10 +53,12 @@ class ProfileController: UICollectionViewController {
         super.viewDidLoad()
         configureCollectionView()
         fetchTweets()
+        fetchRetweetedTweets()
         fetchLikedTweets()
         fetchReplies()
         checkIfUserIsFollowed()
         fetchUserStats()
+        mergeTweetsAndRetweets()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,6 +71,8 @@ class ProfileController: UICollectionViewController {
     func fetchTweets() {
         TweetService.shared.fetchTweets(forUser: user) { tweets in
             self.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
+            self.tweetsFetched = true
+            self.checkIfDataFetched()
             self.collectionView.reloadData()
         }
     }
@@ -70,6 +80,15 @@ class ProfileController: UICollectionViewController {
     func fetchLikedTweets() {
         TweetService.shared.fetchLikes(forUser: user) { tweets in
             self.likedTweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
+        }
+    }
+    
+    func fetchRetweetedTweets() {
+        TweetService.shared.fetchRetweets(forUser: user) { tweets in
+            self.retweetedTweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
+            print("DEBUG: The retweeted tweet timestamp is \(String(describing: tweets[0].retweetTimestamp))")
+            self.retweetsFetched = true
+            self.checkIfDataFetched()
         }
     }
     
@@ -103,6 +122,32 @@ class ProfileController: UICollectionViewController {
         
         guard let tabHeight = tabBarController?.tabBar.frame.height else { return }
         collectionView.contentInset.bottom = tabHeight
+    }
+    
+    func mergeTweetsAndRetweets() {
+        combinedTweets = (tweets + retweetedTweets).sorted(by: { (firstTweet, secondTweet) -> Bool in
+                if let firstRetweetTimestamp = firstTweet.retweetTimestamp, let secondRetweetTimestamp = secondTweet.retweetTimestamp {
+                    // Both are retweets, compare retweet timestamps
+                    return firstRetweetTimestamp > secondRetweetTimestamp
+                } else if let firstRetweetTimestamp = firstTweet.retweetTimestamp {
+                    // First is a retweet, second is a tweet, compare retweet timestamp with tweet timestamp
+                    return firstRetweetTimestamp > secondTweet.timestamp
+                } else if let secondRetweetTimestamp = secondTweet.retweetTimestamp {
+                    // Second is a retweet, first is a tweet, compare tweet timestamp with retweet timestamp
+                    return firstTweet.timestamp > secondRetweetTimestamp
+                } else {
+                    // Both are tweets, compare tweet timestamps
+                    return firstTweet.timestamp > secondTweet.timestamp
+                }
+            })
+        collectionView.reloadData()
+    }
+    
+    func checkIfDataFetched() {
+        print("DEBUG: Tweets fetched is \(tweetsFetched) and Retweets fetched is \(retweetsFetched)")
+        if tweetsFetched || retweetsFetched {
+            mergeTweetsAndRetweets()
+        }
     }
 }
 

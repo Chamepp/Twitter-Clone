@@ -139,6 +139,31 @@ struct TweetService {
         }
     }
     
+    func fetchRetweets(forUser user: User, completion: @escaping([Tweet]) -> Void) {
+        var tweets = [Tweet]()
+        
+        REF_USER_RETWEETS.child(user.uid).observe(.childAdded) { snapshot in
+            let tweetID = snapshot.key
+            
+            REF_USER_RETWEETS.child(user.uid).child(tweetID).observeSingleEvent(of: .value) { snapshot in
+                guard let dictionary = snapshot.value as? [String: Any] else { return }
+                let retweetTimestamp = dictionary["retweetTimestamp"] as? Double
+                
+                self.fetchTweet(withTweetID: tweetID) { retweetedTweet in
+                    var tweet = retweetedTweet
+                    tweet.didRetweet = true
+                    
+                    if let timestampDouble = retweetTimestamp {
+                        tweet.retweetTimestamp = Date(timeIntervalSince1970: TimeInterval(timestampDouble))
+                    }
+                    
+                    tweets.append(tweet)
+                    completion(tweets)
+                }
+            }
+        }
+    }
+    
     func likeTweets(tweet: Tweet, completion: @escaping(DatabaseCompletion)) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -146,7 +171,7 @@ struct TweetService {
         REF_TWEETS.child(tweet.tweetID).child("likes").setValue(likes)
         
         if tweet.didLike {
-            REF_USER_LIKES.child (uid).child(tweet.tweetID).removeValue { (err, ref) in
+            REF_USER_LIKES.child(uid).child(tweet.tweetID).removeValue { (err, ref) in
                 REF_TWEET_LIKES.child(tweet.tweetID).removeValue(completionBlock: completion)
             }
         } else {
@@ -156,10 +181,42 @@ struct TweetService {
         }
     }
     
+    func retweetTweets(tweet: Tweet, completion: @escaping(DatabaseCompletion)) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let retweets = tweet.didRetweet ? tweet.retweetCount - 1 : tweet.retweetCount + 1
+        let timestamp = Int(NSDate().timeIntervalSince1970)
+        
+        REF_TWEETS.child(tweet.tweetID).child("retweets").setValue(retweets)
+        
+        if tweet.didRetweet {
+            REF_USER_RETWEETS.child(uid).child(tweet.tweetID).removeValue { err, ref in
+                REF_TWEET_RETWEETS.child(tweet.tweetID).removeValue(completionBlock: completion)
+            }
+        } else {
+            let values: [String: Any] = [
+                        "retweetTimestamp": timestamp
+                    ]
+            
+            REF_USER_RETWEETS.child(uid).updateChildValues([tweet.tweetID: 1]) { err, ref in
+                REF_USER_RETWEETS.child(uid).child(tweet.tweetID).updateChildValues(values)
+                REF_TWEET_RETWEETS.child(tweet.tweetID).updateChildValues([uid: 1], withCompletionBlock: completion)
+            }
+        }
+    }
+    
     func checkIfUserLikedTweet(_ tweet: Tweet, completion: @escaping(Bool) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         REF_USER_LIKES.child(uid).child(tweet.tweetID).observeSingleEvent(of: .value) { snapshot in
+            completion(snapshot.exists())
+        }
+    }
+    
+    func checkIfUserRetweetedTweet(_ tweet: Tweet, completion: @escaping(Bool) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        REF_USER_RETWEETS.child(uid).child(tweet.tweetID).observeSingleEvent(of: .value) { snapshot in
             completion(snapshot.exists())
         }
     }

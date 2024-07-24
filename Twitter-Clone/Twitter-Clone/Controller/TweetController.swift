@@ -39,7 +39,7 @@ class TweetController: UICollectionViewController {
     // MARK: - API
     func fetchReplies() {
         TweetService.shared.fetchReplies(forTweet: tweet) { replies in
-            self.replies = replies
+            self.replies = replies.sorted(by: { $0.timestamp > $1.timestamp })
         }
     }
     

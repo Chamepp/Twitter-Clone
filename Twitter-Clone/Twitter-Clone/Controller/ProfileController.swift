@@ -72,6 +72,9 @@ class ProfileController: UICollectionViewController {
         TweetService.shared.fetchTweets(forUser: user) { tweets in
             self.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
             self.tweetsFetched = true
+            self.checkIfUserLikedTweets(in: self.tweets) { updatedTweets in
+                self.tweets = updatedTweets
+            }
             self.checkIfDataFetched()
             self.collectionView.reloadData()
         }
@@ -80,13 +83,17 @@ class ProfileController: UICollectionViewController {
     func fetchLikedTweets() {
         TweetService.shared.fetchLikes(forUser: user) { tweets in
             self.likedTweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
+            self.checkIfUserRetweetedTweets(in: self.likedTweets) { updatedTweets in
+                self.likedTweets = updatedTweets
+            }
+            self.checkIfDataFetched()
+            self.collectionView.reloadData()
         }
     }
     
     func fetchRetweetedTweets() {
         TweetService.shared.fetchRetweets(forUser: user) { tweets in
             self.retweetedTweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
-            print("DEBUG: The retweeted tweet timestamp is \(String(describing: tweets[0].retweetTimestamp))")
             self.retweetsFetched = true
             self.checkIfDataFetched()
         }
@@ -102,6 +109,44 @@ class ProfileController: UICollectionViewController {
         UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
             self.user.isFollowed = isFollowed
             self.collectionView.reloadData()
+        }
+    }
+    
+    func checkIfUserLikedTweets(in tweets: [Tweet], completion: @escaping ([Tweet]) -> Void) {
+        var updatedTweets = tweets
+        let dispatchGroup = DispatchGroup()
+
+        for (index, tweet) in tweets.enumerated() {
+            dispatchGroup.enter()
+            TweetService.shared.checkIfUserLikedTweet(tweet) { didLike in
+                if didLike {
+                    updatedTweets[index].didLike = true
+                }
+                dispatchGroup.leave()
+            }
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            completion(updatedTweets)
+        }
+    }
+    
+    func checkIfUserRetweetedTweets(in tweets: [Tweet], completion: @escaping ([Tweet]) -> Void) {
+        var updatedTweets = tweets
+        let dispatchGroup = DispatchGroup()
+
+        for (index, tweet) in tweets.enumerated() {
+            dispatchGroup.enter()
+            TweetService.shared.checkIfUserRetweetedTweet(tweet) { didRetweet in
+                if didRetweet {
+                    updatedTweets[index].didRetweet = true
+                }
+                dispatchGroup.leave()
+            }
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            completion(updatedTweets)
         }
     }
     
@@ -144,7 +189,6 @@ class ProfileController: UICollectionViewController {
     }
     
     func checkIfDataFetched() {
-        print("DEBUG: Tweets fetched is \(tweetsFetched) and Retweets fetched is \(retweetsFetched)")
         if tweetsFetched || retweetsFetched {
             mergeTweetsAndRetweets()
         }

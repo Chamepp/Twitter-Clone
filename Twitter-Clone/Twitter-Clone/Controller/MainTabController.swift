@@ -95,7 +95,7 @@ class MainTabController: UITabBarController {
 
         let notifications = Utilities().templateNavigationController(image: UIImage(named: "notification"), rootViewController: NotificationsController())
 
-        let conversations = Utilities().templateNavigationController(image: UIImage(named: "news"), rootViewController: ConversationsController())
+        let conversations = Utilities().templateNavigationController(image: UIImage(named: "news"), rootViewController: NewsController())
         
         viewControllers = [feed, explore, notifications, conversations]
     }

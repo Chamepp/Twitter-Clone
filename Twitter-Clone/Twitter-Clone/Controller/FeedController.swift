@@ -19,8 +19,19 @@ class FeedController: UICollectionViewController {
         }
     }
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.style = .medium
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
+    
     private var tweets = [Tweet]() {
-        didSet { collectionView.reloadData() }
+        didSet {
+            collectionView.reloadData()
+            activityIndicator.stopAnimating()
+        }
     }
     
     // MARK: - Lifecycle
@@ -45,6 +56,7 @@ class FeedController: UICollectionViewController {
     
     // MARK: - API
     @objc func fetchTweets() {
+        activityIndicator.startAnimating()
         collectionView.refreshControl?.beginRefreshing()
         
         TweetService.shared.fetchTweets { tweets in
@@ -83,6 +95,9 @@ class FeedController: UICollectionViewController {
     // MARK: - Helpers
     func configureUI() {
         view.backgroundColor = .white
+        
+        view.addSubview(activityIndicator)
+        activityIndicator.center(inView: view)
         
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         

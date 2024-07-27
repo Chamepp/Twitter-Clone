@@ -49,6 +49,7 @@ class Utilities {
         
         if isSecure {
             tf.isSecureTextEntry = true
+            tf.textContentType = .name
         }
         
         return tf

@@ -115,7 +115,8 @@ class LoginController: UIViewController {
     }
     
     @objc func handleForgotPassword() {
-        print("DEBUG: Handling forgot password")
+        let controller = ForgotPasswordController()
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     // MARK: - Helpers

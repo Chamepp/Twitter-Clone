@@ -75,6 +75,7 @@ class ForgotPasswordController: UIViewController {
             }
             
             print("DEBUG: Reset password link sent to the provided email")
+            AlertManager.shared.presentCredentialsAlert(onController: self, title: "Email Sent", message: "Reset password link sent to the provided email")
         }
     }
     

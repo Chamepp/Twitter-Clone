@@ -72,9 +72,9 @@ class ForgotPasswordController: UIViewController {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             if let error = error {
                 print("DEBUG: Unable to reset password: \(error.localizedDescription)")
+                AlertManager.shared.presentCredentialsAlert(onController: self, title: "Error", message: "Unable to reset password: \(error.localizedDescription)")
             }
             
-            print("DEBUG: Reset password link sent to the provided email")
             AlertManager.shared.presentCredentialsAlert(onController: self, title: "Email Sent", message: "Reset password link sent to the provided email")
         }
     }

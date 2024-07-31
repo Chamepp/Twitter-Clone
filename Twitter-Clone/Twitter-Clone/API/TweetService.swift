@@ -37,28 +37,71 @@ struct TweetService {
         }
     }
     
-    func fetchTweets(completion: @escaping([Tweet]) -> Void) {
+    func fetchTweets(completion: @escaping ([Tweet]) -> Void) {
         var tweets = [Tweet]()
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         
-        REF_USER_FOLLOWING.child(currentUid).observe(.childAdded) { snapshot in
-            let followingUid = snapshot.key
+        REF_USER_TWEETS.observe(.value) { snapshot in
+            var updatedTweets = [Tweet]()
             
-            REF_USER_TWEETS.child(followingUid).observe(.childAdded) { snapshot in
-                let tweetID = snapshot.key
+            guard let tweetSnapshots = snapshot.children.allObjects as? [DataSnapshot] else {
+                completion([])
+                return
+            }
+            
+            let dispatchGroup = DispatchGroup()
+            
+            for tweetSnapshot in tweetSnapshots {
+                let tweetID = tweetSnapshot.key
+                dispatchGroup.enter()
                 
                 self.fetchTweet(withTweetID: tweetID) { tweet in
-                    tweets.append(tweet)
-                    completion(tweets)
+                    updatedTweets.append(tweet)
+                    dispatchGroup.leave()
                 }
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                tweets = updatedTweets
+                completion(tweets)
             }
         }
         
-        REF_USER_TWEETS.child(currentUid).observe(.childAdded) { snapshot in
-            let tweetID = snapshot.key
+        REF_USER_FOLLOWING.child(currentUid).observe(.value) { snapshot in
+            guard let followingUids = snapshot.children.allObjects as? [DataSnapshot] else {
+                completion([])
+                return
+            }
             
-            self.fetchTweet(withTweetID: tweetID) { tweet in
-                tweets.append(tweet)
+            let dispatchGroup = DispatchGroup()
+            
+            for followingUidSnapshot in followingUids {
+                let followingUid = followingUidSnapshot.key
+                let userTweetsRef = REF_USER_TWEETS.child(followingUid)
+                
+                dispatchGroup.enter()
+                
+                userTweetsRef.observe(.value) { snapshot in
+                    guard let tweetSnapshots = snapshot.children.allObjects as? [DataSnapshot] else {
+                        dispatchGroup.leave()
+                        return
+                    }
+                    
+                    for tweetSnapshot in tweetSnapshots {
+                        let tweetID = tweetSnapshot.key
+                        dispatchGroup.enter()
+                        
+                        self.fetchTweet(withTweetID: tweetID) { tweet in
+                            tweets.append(tweet)
+                            dispatchGroup.leave()
+                        }
+                    }
+                    
+                    dispatchGroup.leave()
+                }
+            }
+            
+            dispatchGroup.notify(queue: .main) {
                 completion(tweets)
             }
         }

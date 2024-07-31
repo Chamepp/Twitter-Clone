@@ -31,8 +31,37 @@ class FeedController: UICollectionViewController {
         didSet {
             collectionView.reloadData()
             activityIndicator.stopAnimating()
+            checkIfTweetsAvailable(for: &self.tweets)
         }
     }
+    
+    private let noTweetsImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
+        iv.image = UIImage(named: "not_available")
+        iv.isHidden = true
+        return iv
+    }()
+    
+    private let noTweetsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No Tweets Available"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.isHidden = true
+        return label
+    }()
+    
+    private let noTweetsDescription: UILabel = {
+        let label = UILabel()
+        label.text = "Consider following some people \nfrom the explore tab"
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.numberOfLines = 0
+        label.isHidden = true
+        return label
+    }()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -99,6 +128,13 @@ class FeedController: UICollectionViewController {
         view.addSubview(activityIndicator)
         activityIndicator.center(inView: view)
         
+        let labelStack = UIStackView(arrangedSubviews: [noTweetsImageView, noTweetsLabel, noTweetsDescription])
+        labelStack.axis = .vertical
+        labelStack.spacing = 10
+        
+        view.addSubview(labelStack)
+        labelStack.center(inView: view)
+        
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         let imageView = UIImageView(image: UIImage(named: "twitter_logo_blue"))
@@ -133,6 +169,12 @@ class FeedController: UICollectionViewController {
     
     func scheduleNotification() {
         PushNotificationManager.shared.scheduleNotification(identifier: .appActivity)
+    }
+    
+    func checkIfTweetsAvailable(for tweets: inout [Tweet]) {
+        noTweetsLabel.isHidden = !tweets.isEmpty
+        noTweetsDescription.isHidden = !tweets.isEmpty
+        noTweetsImageView.isHidden = !tweets.isEmpty
     }
 }
 

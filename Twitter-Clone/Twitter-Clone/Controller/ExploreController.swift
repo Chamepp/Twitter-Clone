@@ -78,7 +78,6 @@ class ExploreController: UITableViewController {
 // MARK: - UITableViewDelgate/DataSource
 extension ExploreController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("DEBUG: ")
         return inSearchMode ? filteredUsers.count : users.count
     }
     

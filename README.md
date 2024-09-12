@@ -1,3 +1,16 @@
+<div align="center">
+  <img src="" width=200 height=200>
+  <h1>Twitter Clone Application</h1>
+  <img src="https://img.shields.io/github/last-commit/oziw/3D-Web-Roadmap">
+  <img src="https://img.shields.io/github/issues-raw/oziw/3D-web-roadmap?color=magenta">
+  <img src="https://img.shields.io/github/issues-pr/oziw/3d-web-roadmap?color=purple">
+  <img src="https://img.shields.io/github/stars/oziw/3d-web-roadmap?style=social">
+  <img src="https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Foziw%2F3D-Web-Roadmap">
+  <p>
+  A clone version of the twitter application built in UIKit.
+  </p>
+</div>
+
 ## Technologies & Patterns
 
 - **UIKit**

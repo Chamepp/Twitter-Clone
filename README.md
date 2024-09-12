@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/Twitter.png" width=200 height=200>
+  <img src="/Twitter-Logo.svg" width=200 height=200>
   <h1>Twitter Clone Application</h1>
   <img src="https://img.shields.io/github/last-commit/Chamepp/Twitter-Clone">
   <img src="https://img.shields.io/github/issues-raw/Chamepp/Twitter-Clone?color=magenta">

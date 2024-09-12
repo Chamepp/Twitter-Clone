@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="" width=200 height=200>
+  <img src="/Twitter-Logo.png" width=200 height=200>
   <h1>Twitter Clone Application</h1>
   <img src="https://img.shields.io/github/last-commit/oziw/3D-Web-Roadmap">
   <img src="https://img.shields.io/github/issues-raw/oziw/3D-web-roadmap?color=magenta">

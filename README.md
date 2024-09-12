@@ -6,8 +6,11 @@
   <img src="https://img.shields.io/github/issues-pr/Chamepp/Twitter-Clone?color=purple">
   <img src="https://img.shields.io/github/stars/Chamepp/Twitter-Clone?style=social">
   <img src="https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2FChamepp%2FTwitter-Clone">
+  <br />
+  <br />
   <p>
-  A clone version of the twitter application built in UIKit.
+    A clone of the Twitter application built using Apple’s UIKit framework, replicating core features like 
+    user authentication, timeline feeds, and tweet interactions.
   </p>
 </div>
 
